@@ -39,6 +39,10 @@
 <script lang="ts" setup>
 import { ref, computed, watch } from "vue";
 import allArea from "../lib/pca-code.json";
+export interface Data {
+  name: string;
+  code: string;
+}
 // 选中的省份
 let province = ref<string>("");
 // 选中的城市
@@ -47,7 +51,9 @@ let city = ref<string>("");
 let area = ref<string>("");
 // 拷贝所有地区
 let areas = ref(allArea);
+// 省份的具体数据
 
+const emit = defineEmits(["change"]);
 // let cities = computed(() => {
 //   let result: any = [];
 //   if (province) {
@@ -91,6 +97,32 @@ watch(
   () => city.value,
   () => {
     area.value = "";
+  }
+);
+watch(
+  () => area.value,
+  (val) => {
+    if (val) {
+      let provinceData: Data = {
+        code: areas.value.find((item) => item.name == province.value)!.code,
+        name: province.value,
+      };
+      // 城市的具体数据
+      let cityData: Data = {
+        code: selectCity.value.find((item) => item.name == city.value)!.code,
+        name: city.value,
+      };
+      // 区(县)的具体数据
+      let areaData: Data = {
+        code: selectArea.value.find((item) => item.name == area.value)!.code,
+        name: val,
+      };
+      emit("change", {
+        province: provinceData,
+        city: cityData,
+        area: areaData,
+      });
+    }
   }
 );
 </script>
