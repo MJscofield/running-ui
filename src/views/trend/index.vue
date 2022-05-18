@@ -1,10 +1,16 @@
 <template>
   <div class="flex">
     <div>
-      <m-trend type="up" text="上升" reserveColor></m-trend>
+      <m-trend type="up" text="上升" reserveColor upIcon="CaretTop"></m-trend>
     </div>
     <div>
-      <m-trend type="down" text="下降" downIconColor="blue"></m-trend>
+      <m-trend
+        type="down"
+        text="下降"
+        downIconColor="blue"
+        textColor="purple"
+        downIcon="CaretBottom"
+      ></m-trend>
     </div>
   </div>
 </template>
