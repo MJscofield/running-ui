@@ -1,0 +1,13 @@
+// 修改组件库样式
+// 创建一个类名空间
+// 现在浏览器调试好样式
+// 再将调试好的类名放在类名空间中
+// 在App.vue中引入
+// 在需要修改的元素的父元素上面添加该类名
+.m-choose-icon-dialog-body-height {
+  .el-dialog__body {
+    height: 24rem;
+    overflow: hidden scroll;
+    padding: 10px 2px;
+  }
+}
