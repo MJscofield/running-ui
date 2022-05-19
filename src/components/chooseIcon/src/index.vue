@@ -5,7 +5,7 @@
   <div class="m-choose-icon-dialog-body-height">
     <el-dialog :title="title" v-model="visible">
       <div class="container">
-        <template v-for="(item, index) in Object.keys(Icon)">
+        <template v-for="item in Object.keys(Icon)" :key="item">
           <div class="icon-item" @click="copyIcon(item)">
             <component :is="`el-icon${toLine(item)}`" class="icon"></component>
             <div class="icon-name">
