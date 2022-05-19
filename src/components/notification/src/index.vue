@@ -1,5 +1,5 @@
 <template>
-  <el-popover placement="top-start" :width="200" trigger="hover">
+  <el-popover placement="bottom" :width="300" trigger="click">
     <template #default>
       <slot></slot>
     </template>

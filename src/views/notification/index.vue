@@ -11,9 +11,11 @@
   <br />
 
   <m-notification value="新闹钟" icon="AlarmClock">
-    <m-list></m-list>
+    <m-list :list="list" :action="actions"></m-list>
   </m-notification>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { list, actions } from "src/components/notification/src/data";
+</script>
 <style scoped lang="scss"></style>
