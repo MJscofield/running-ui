@@ -8,9 +8,10 @@
               class="container"
               v-for="(item1, indey) in item.content"
               :key="indey"
+              @click="clickItem(item1, indey)"
             >
               <div class="avatar" v-if="item1.avatar">
-                <el-avatar :size="mini" :src="item1.avatar" />
+                <el-avatar :size="small" :src="item1.avatar" />
               </div>
               <div class="content">
                 <div class="title">
@@ -34,7 +35,7 @@
           </div> -->
           <div class="action">
             <template v-for="(action, indez) in action" :key="indez">
-              <div class="a-item">
+              <div class="a-item" @click="clickAction(action, indez)">
                 <div class="a-icon">
                   <component :is="`el-icon${toLine(action.icon)}`" />
                 </div>
@@ -52,6 +53,8 @@
 import { PropType } from "vue";
 import { ListOptions, ActionOptions } from "src/components/list/src/types";
 import { toLine } from "src/utils";
+import { emit } from "process";
+import { tabsEmits } from "element-plus";
 
 let props = defineProps({
   list: {
@@ -63,7 +66,14 @@ let props = defineProps({
     required: true,
   },
 });
-console.log(props);
+let emits = defineEmits(["clickItem", "clickAction"]);
+
+let clickItem = (item1: ListOptions, indey: number) => {
+  emits("clickItem", item1, indey);
+};
+let clickAction = (action: ActionOptions, indez: number) => {
+  emits("clickAction", action, indez);
+};
 </script>
 <style scoped lang="scss">
 .container {
