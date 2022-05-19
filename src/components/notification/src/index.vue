@@ -1,9 +1,19 @@
 <template>
-  <div class="notification">
-    <el-badge :value="value" :max="max" :is-dot="isDot">
-      <component :is="`el-icon${toLine(icon)}`" />
-    </el-badge>
-  </div>
+  <el-popover placement="top-start" :width="200" trigger="hover">
+    <template #default>
+      <slot></slot>
+    </template>
+    <template #reference>
+      <el-badge
+        :value="value"
+        :max="max"
+        :is-dot="isDot"
+        style="cursor: pointer"
+      >
+        <component :is="`el-icon${toLine(icon)}`" />
+      </el-badge>
+    </template>
+  </el-popover>
 </template>
 
 <script lang="ts" setup>

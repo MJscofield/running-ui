@@ -10,7 +10,9 @@
   <br />
   <br />
 
-  <m-notification value="新闹钟" icon="AlarmClock"></m-notification>
+  <m-notification value="新闹钟" icon="AlarmClock">
+    <m-list></m-list>
+  </m-notification>
 </template>
 
 <script lang="ts" setup></script>
