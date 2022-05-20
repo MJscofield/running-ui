@@ -20,4 +20,8 @@ const toggle = () => {
 .header {
   padding: 0 20px;
 }
+svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
 </style>

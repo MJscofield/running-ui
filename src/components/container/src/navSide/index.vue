@@ -55,7 +55,7 @@ let data = [
   {
     name: "进度条",
     icon: "DArrowRight",
-    index: "/process",
+    index: "/progress",
   },
   {
     name: "日历",
