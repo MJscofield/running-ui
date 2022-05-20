@@ -38,6 +38,11 @@ let data = [
     index: "/chooseTime",
   },
   {
+    name: "日期选择",
+    icon: "Calendar",
+    index: "/chooseDate",
+  },
+  {
     name: "通知菜单",
     icon: "Bell",
     index: "/notification",

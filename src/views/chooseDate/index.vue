@@ -1,9 +1,11 @@
 <template>
-  <m-choose-time @changeTime="changeTime"></m-choose-time>
+  <div>
+    <m-choose-date @changeDate="changeDate"></m-choose-date>
+  </div>
 </template>
 
 <script lang="ts" setup>
-let changeTime = (val: any) => {
+let changeDate = (val: any) => {
   console.log(val);
 };
 </script>
