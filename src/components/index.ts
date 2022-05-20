@@ -5,6 +5,7 @@ import notification from "./notification";
 import list from "./list";
 import menu from "./menu";
 import progress from "./progress";
+import chooseTime from "./chooseTime";
 import { App } from "vue";
 
 const components = [
@@ -15,6 +16,7 @@ const components = [
   list,
   menu,
   progress,
+  chooseTime,
 ];
 export default {
   install(app: App) {

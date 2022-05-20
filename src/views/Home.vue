@@ -1,7 +1,5 @@
 <template>
   <div>首页</div>
-  <el-button>hello</el-button>
-  <el-icon-video-camera-filled />
 </template>
 
 <script lang="ts">

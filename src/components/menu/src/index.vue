@@ -87,12 +87,9 @@ svg {
 }
 
 .el-menu--collapse {
-  width: 80px;
+  width: 70px;
   span {
     display: none;
-  }
-  .el-menu-item {
-    justify-content: center;
   }
 }
 </style>
