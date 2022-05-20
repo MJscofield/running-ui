@@ -12,7 +12,7 @@
     "esModuleInterop": true,
     "lib": [
       "esnext",
-      "dom"
+      "dom",
     ],
     "skipLibCheck": true,
     "baseUrl": "./",

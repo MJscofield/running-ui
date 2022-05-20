@@ -1,5 +1,5 @@
 <template>
-  <el-popover placement="bottom" :width="300" trigger="click">
+  <el-popover :placement="placement" :width="300" trigger="click">
     <template #default>
       <slot></slot>
     </template>
@@ -33,6 +33,11 @@ let props = defineProps({
   isDot: {
     type: Boolean,
     default: false,
+  },
+  // 控制弹出框的位置, 默认在底部
+  placement: {
+    type: String,
+    default: "bottom",
   },
 });
 </script>

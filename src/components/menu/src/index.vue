@@ -6,32 +6,34 @@
     :router="router"
     v-bind="$attrs"
   >
-    <template v-for="(item, index) in data" :key="index">
-      <el-menu-item
-        v-if="!item.children || !item.children.length"
-        :index="item.index"
-      >
-        <component :is="`el-icon${toLine(item.icon)}`" v-if="item.icon" />
-        <span>{{ item.name }}</span>
-      </el-menu-item>
-      <el-sub-menu
-        v-if="item.children && item.children.length"
-        :index="item.index"
-      >
-        <template #title>
+    <el-scrollbar>
+      <template v-for="(item, index) in data" :key="index">
+        <el-menu-item
+          v-if="!item.children || !item.children.length"
+          :index="item.index"
+        >
           <component :is="`el-icon${toLine(item.icon)}`" v-if="item.icon" />
           <span>{{ item.name }}</span>
-        </template>
-        <el-menu-item
-          v-for="(item1, indey) in item.children"
-          :key="indey"
-          :index="item1.index"
-        >
-          <component :is="`el-icon${toLine(item1.icon)}`" v-if="item1.icon" />
-          <span>{{ item1.name }}</span>
         </el-menu-item>
-      </el-sub-menu>
-    </template>
+        <el-sub-menu
+          v-if="item.children && item.children.length"
+          :index="item.index"
+        >
+          <template #title>
+            <component :is="`el-icon${toLine(item.icon)}`" v-if="item.icon" />
+            <span>{{ item.name }}</span>
+          </template>
+          <el-menu-item
+            v-for="(item1, indey) in item.children"
+            :key="indey"
+            :index="item1.index"
+          >
+            <component :is="`el-icon${toLine(item1.icon)}`" v-if="item1.icon" />
+            <span>{{ item1.name }}</span>
+          </el-menu-item>
+        </el-sub-menu>
+      </template>
+    </el-scrollbar>
   </el-menu>
 </template>
 
@@ -61,5 +63,8 @@ let props = defineProps({
 <style scoped lang="scss">
 svg {
   margin-right: 5px;
+}
+span {
+  margin-left: 7px;
 }
 </style>

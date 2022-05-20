@@ -1,5 +1,5 @@
 <template>
-  <m-notification value="新闹钟" icon="AlarmClock">
+  <m-notification value="新闹钟" icon="AlarmClock" placement="right">
     <m-list
       :list="list"
       :action="actions"
