@@ -3,7 +3,7 @@
     :data="data"
     router
     :default-active="$route.path"
-    style="width: 200px"
+    :collapse="collapse"
   ></m-menu>
 </template>
 
@@ -75,9 +75,4 @@ let data = [
   },
 ];
 </script>
-<style scoped>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 200px;
-  min-height: 400px;
-}
-</style>
+<style scoped></style>

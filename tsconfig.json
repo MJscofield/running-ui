@@ -13,6 +13,7 @@
     "lib": [
       "esnext",
       "dom",
+      "es6"
     ],
     "skipLibCheck": true,
     "baseUrl": "./",

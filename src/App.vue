@@ -10,4 +10,7 @@
 // .el-popper {
 //   padding: 0 !important;
 // }
+body {
+  background-color: #eff1f4;
+}
 </style>

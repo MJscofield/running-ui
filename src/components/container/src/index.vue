@@ -28,5 +28,6 @@ let isCollapse = ref(false);
   align-items: center;
   margin: 1px;
   border-bottom: 1px solid #eee;
+  background-color: #ffffff;
 }
 </style>

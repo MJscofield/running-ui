@@ -62,16 +62,6 @@ let data = [
 ];
 let data1 = [
   {
-    name: "导航1",
-    index: "1",
-    icon: "Menu",
-  },
-  {
-    name: "导航2",
-    index: "2",
-    icon: "Menu",
-  },
-  {
     name: "导航3",
     index: "3",
     icon: "Menu",
@@ -134,10 +124,6 @@ let data1 = [
 <style scoped lang="scss">
 .menu {
   display: flex;
-
-  .menu-item1,
-  .menu-item2 {
-    width: 300px;
-  }
+  height: 100%;
 }
 </style>
