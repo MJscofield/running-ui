@@ -60,8 +60,9 @@ watch(
   (val) => {
     if (startDate.value) {
       endDateDisabled.value = false;
-    } else {
+    } else if (!val) {
       endDate.value = null;
+      endDateDisabled.value = true;
     }
     if (startDate.value && endDate.value) {
       emits("changeDate", {
