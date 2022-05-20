@@ -45,4 +45,8 @@ let props = defineProps({
 .notification {
   cursor: pointer;
 }
+svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
 </style>

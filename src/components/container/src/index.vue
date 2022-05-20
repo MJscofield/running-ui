@@ -7,10 +7,11 @@
       <el-header>
         <nav-header v-model:collapse="isCollapse" />
       </el-header>
-
-      <el-main>
-        <router-view />
-      </el-main>
+      <div class="main">
+        <el-main>
+          <router-view />
+        </el-main>
+      </div>
     </el-container>
   </el-container>
 </template>
@@ -21,7 +22,7 @@ import NavHeader from "./navHeader/index.vue";
 import NavSide from "./navSide/index.vue";
 let isCollapse = ref(false);
 </script>
-<style scoped>
+<style scoped lang="scss">
 .el-header {
   padding: 0;
   display: flex;
