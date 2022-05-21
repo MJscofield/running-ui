@@ -48,7 +48,99 @@ let options: FormOptions[] = [
     attrs: {
       showPassword: true,
       clearable: true,
+      statusIcon: true,
     },
+  },
+  {
+    type: "select",
+    label: "职位",
+    value: "",
+    placeholder: "请选择职位",
+    prop: "role",
+    attrs: {
+      style: {
+        width: "100%",
+      },
+    },
+    rules: [
+      {
+        required: true,
+        message: "职位不能为空",
+        trigger: "blur",
+      },
+    ],
+    children: [
+      {
+        type: "option",
+        value: "1",
+        label: "管理员",
+      },
+      {
+        type: "option",
+        value: "2",
+        label: "经理",
+      },
+      {
+        type: "option",
+        value: "3",
+        label: "主管",
+      },
+    ],
+  },
+  {
+    type: "checkbox-group",
+    value: [],
+    prop: "like",
+    label: "爱好",
+    rules: [
+      {
+        required: true,
+        message: "请选择爱好",
+        trigger: "blur",
+      },
+    ],
+    children: [
+      {
+        type: "checkbox",
+        label: "足球",
+        value: "1",
+      },
+      {
+        type: "checkbox",
+        label: "篮球",
+        value: "2",
+      },
+    ],
+  },
+  {
+    type: "radio-group",
+    value: "",
+    prop: "gender",
+    label: "性别",
+    rules: [
+      {
+        required: true,
+        message: "请选择性别",
+        trigger: "blur",
+      },
+    ],
+    children: [
+      {
+        type: "radio",
+        label: "男",
+        value: "male",
+      },
+      {
+        type: "radio",
+        label: "女",
+        value: "female",
+      },
+      {
+        type: "radio",
+        label: "保密",
+        value: "secret",
+      },
+    ],
   },
 ];
 </script>

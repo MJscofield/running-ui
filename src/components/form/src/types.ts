@@ -48,6 +48,7 @@ export interface FormOptions {
     // css样式
     style?: CSSProperties;
     clearable?: boolean;
+    statusIcon?: boolean;
     showPassword?: boolean;
     disabled?: boolean;
   };
