@@ -8,7 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.182",
     "element-plus": "^2.2.0",
+    "lodash": "^4.17.21",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13"
   },

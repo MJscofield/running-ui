@@ -7,6 +7,7 @@ import menu from "./menu";
 import progress from "./progress";
 import chooseTime from "./chooseTime";
 import chooseDate from "./chooseDate";
+import form from "./form";
 import { App } from "vue";
 
 const components = [
@@ -18,7 +19,8 @@ const components = [
   menu,
   progress,
   chooseTime,
-  chooseDate
+  chooseDate,
+  form,
 ];
 export default {
   install(app: App) {
