@@ -1,10 +1,27 @@
 <template>
-  <m-form :options="options" labelWidth="120px"></m-form>
+  <m-form :options="options" labelWidth="120px">
+    <template #default>
+      <el-button type="primary">Click to upload</el-button>
+    </template>
+
+    <template #tip>
+      <div class="uploadTip">jpg/png files with a size less than 500KB.</div>
+    </template>
+
+    <template #action="scope">
+      <el-button type="primary" @click="onSubmit(scope)">提交</el-button>
+      <el-button @click="resetForm(scope)">重置</el-button>
+    </template>
+  </m-form>
 </template>
 
 <script lang="ts" setup>
-import { FormOptions } from "src/components/form/src/types";
-
+import { FormOptions, FormInstance } from "src/components/form/src/types";
+import { ElMessage } from "element-plus";
+interface Scope {
+  form: FormInstance;
+  model: any;
+}
 let options: FormOptions[] = [
   {
     type: "input",
@@ -142,6 +159,33 @@ let options: FormOptions[] = [
       },
     ],
   },
+  {
+    type: "upload",
+    label: "上传",
+    prop: "pic",
+    uploadAttrs: {
+      action: "https://jsonplaceholder.typicode.com/posts/",
+    },
+  },
 ];
+let onSubmit = (scope: Scope) => {
+  scope.form.validate((valid) => {
+    if (valid) {
+      console.log(scope.model);
+      ElMessage.success("提交成功");
+    } else {
+      ElMessage.error("请检查表单");
+    }
+  });
+};
+let resetForm = (scope: Scope) => {
+  scope.form.resetFields();
+};
 </script>
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.uploadTip {
+  font-size: 14px;
+  color: #999;
+  margin-left: 10px;
+}
+</style>

@@ -1,5 +1,6 @@
 <template>
   <el-form
+    ref="form"
     :validate-on-rule-change="false"
     v-if="model"
     v-bind="$attrs"
@@ -13,10 +14,15 @@
         :prop="item.prop"
       >
         <component
+          v-if="item.type !== 'upload'"
           :is="`el-${item.type}`"
           v-bind="item.$attrs"
           v-model="model[item.prop]"
         />
+        <el-upload v-else v-bind="item.uploadAttrs">
+          <slot />
+          <slot name="tip" />
+        </el-upload>
       </el-form-item>
       <el-form-item
         v-if="item.children && item.children.length"
@@ -38,12 +44,15 @@
         </component>
       </el-form-item>
     </template>
+    <el-form-item>
+      <slot name="action" :form="form" :model="model"></slot>
+    </el-form-item>
   </el-form>
 </template>
 
 <script lang="ts" setup>
 import { PropType, ref, onMounted, watch } from "vue";
-import { FormOptions } from "./types";
+import { FormOptions, FormInstance } from "./types";
 import cloneDeep from "lodash/cloneDeep";
 let props = defineProps({
   options: {
@@ -53,6 +62,7 @@ let props = defineProps({
 });
 let model = ref<any>(null);
 let rules = ref<any>(null);
+let form = ref<FormInstance | null>(null);
 let initForm = () => {
   if (props.options && props.options.length) {
     let m: any = {};
