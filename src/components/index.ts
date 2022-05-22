@@ -8,6 +8,7 @@ import progress from "./progress";
 import chooseTime from "./chooseTime";
 import chooseDate from "./chooseDate";
 import form from "./form";
+import modalForm from "./modalForm";
 import { App } from "vue";
 
 const components = [
@@ -21,6 +22,7 @@ const components = [
   chooseTime,
   chooseDate,
   form,
+  modalForm,
 ];
 export default {
   install(app: App) {
