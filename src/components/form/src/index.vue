@@ -66,6 +66,8 @@ let props = defineProps({
 let model = ref<any>(null);
 let rules = ref<any>(null);
 let form = ref<FormInstance | null>(null);
+let edit = ref();
+// 初始化表单
 let initForm = () => {
   if (props.options && props.options.length) {
     let m: any = {};
@@ -78,12 +80,12 @@ let initForm = () => {
           if (document.getElementById("editor")) {
             const editor = new E("#editor");
             editor.create();
-            editor.config.placeholder = item.placeholder!;
+            console.log(editor.config);
             editor.txt.html(item.value);
             editor.config.onchange = (newHtml: string) => {
               model.value[item.prop!] = newHtml;
-              console.log(model.value);
             };
+            edit.value = editor;
           }
         });
       }
@@ -92,6 +94,23 @@ let initForm = () => {
     });
   }
 };
+console.log(props.options);
+// 重写重置表单
+let resetFields = () => {
+  // 重置element-plus表单的值
+  form.value!.resetFields();
+  // 重置wangEditor的值
+  if (props.options && props.options.length) {
+    let editorItem = props.options.find(
+      (item: FormOptions) => item.type === "editor"
+    );
+    edit.value.txt.html(editorItem!.value);
+    console.log(edit.value);
+  }
+};
+defineExpose({
+  resetFields,
+});
 onMounted(() => {
   initForm();
 });

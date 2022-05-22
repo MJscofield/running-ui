@@ -1,5 +1,5 @@
 <template>
-  <m-form :options="options" labelWidth="120px">
+  <m-form ref="form" :options="options" labelWidth="120px">
     <template #default>
       <el-button type="primary">Click to upload</el-button>
     </template>
@@ -10,12 +10,13 @@
 
     <template #action="scope">
       <el-button type="primary" @click="onSubmit(scope)">提交</el-button>
-      <el-button @click="resetForm(scope)">重置</el-button>
+      <el-button @click="resetForm">重置</el-button>
     </template>
   </m-form>
 </template>
 
 <script lang="ts" setup>
+import { ref } from "vue";
 import { FormOptions, FormInstance } from "src/components/form/src/types";
 import { ElMessage } from "element-plus";
 interface Scope {
@@ -172,6 +173,7 @@ let options: FormOptions[] = [
     value: "",
     prop: "desc",
     label: "描述",
+
     rules: [
       {
         required: true,
@@ -191,8 +193,9 @@ let onSubmit = (scope: Scope) => {
     }
   });
 };
-let resetForm = (scope: Scope) => {
-  scope.form.resetFields();
+let form = ref();
+let resetForm = () => {
+  form.value.resetFields();
 };
 </script>
 <style scoped lang="scss">
