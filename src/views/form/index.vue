@@ -167,6 +167,19 @@ let options: FormOptions[] = [
       action: "https://jsonplaceholder.typicode.com/posts/",
     },
   },
+  {
+    type: "editor",
+    value: "",
+    prop: "desc",
+    label: "描述",
+    rules: [
+      {
+        required: true,
+        message: "请输入描述",
+        trigger: "blur",
+      },
+    ],
+  },
 ];
 let onSubmit = (scope: Scope) => {
   scope.form.validate((valid) => {

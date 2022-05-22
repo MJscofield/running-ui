@@ -7,11 +7,10 @@
       <el-header>
         <nav-header v-model:collapse="isCollapse" />
       </el-header>
-      <div class="main">
-        <el-main>
-          <router-view />
-        </el-main>
-      </div>
+
+      <el-main>
+        <router-view />
+      </el-main>
     </el-container>
   </el-container>
 </template>
