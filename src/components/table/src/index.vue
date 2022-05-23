@@ -1,5 +1,13 @@
 <template>
-  <el-table :data="data" v-bind="$attrs">
+  <el-table
+    v-loading="isLoading"
+    :data="data"
+    v-bind="$attrs"
+    :element-loading-text="elementLoadingText"
+    :element-loading-svg="elementLoadingSvg"
+    :element-loading-background="elementLoadingBackground"
+    :element-loading-svg-view-box="elementLoadingSvgViewBox"
+  >
     <template v-for="(item, index) in tableOptions" :key="index">
       <el-table-column
         v-if="!item.slot"
@@ -33,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, computed } from "vue";
+import { PropType, computed, ref } from "vue";
 import { TableOptions } from "./types";
 let props = defineProps({
   options: {
@@ -43,6 +51,22 @@ let props = defineProps({
   data: {
     type: Array as PropType<any[]>,
     required: true,
+  },
+  elementLoadingText: {
+    type: String,
+    default: "",
+  },
+  elementLoadingSvg: {
+    type: String,
+    default: "",
+  },
+  elementLoadingBackground: {
+    type: String,
+    default: "",
+  },
+  elementLoadingSvgViewBox: {
+    type: String,
+    default: "",
   },
 });
 
@@ -54,5 +78,8 @@ let tableOptions = computed(() => {
 let actionOptions = computed(() => {
   return props.options.find((item) => item.action);
 });
+
+// 判断数据是否在加载中
+let isLoading = computed(() => !props.data || !props.data.length);
 </script>
 <style scoped lang="scss"></style>
