@@ -9,4 +9,6 @@ export interface TableOptions {
   align?: "left" | "center" | "right";
   // 自定义列表模板名称
   slot?: string;
+  // 是否代表操作项
+  action?: boolean;
 }
