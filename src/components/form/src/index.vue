@@ -80,7 +80,7 @@ let initForm = () => {
           if (document.getElementById("editor")) {
             const editor = new E("#editor");
             editor.create();
-            console.log(editor.config);
+
             editor.txt.html(item.value);
             editor.config.onchange = (newHtml: string) => {
               model.value[item.prop!] = newHtml;
@@ -94,7 +94,7 @@ let initForm = () => {
     });
   }
 };
-console.log(props.options);
+
 // 重写重置表单
 let resetFields = () => {
   // 重置element-plus表单的值
@@ -105,11 +105,23 @@ let resetFields = () => {
       (item: FormOptions) => item.type === "editor"
     );
     edit.value.txt.html(editorItem!.value);
-    console.log(edit.value);
   }
 };
+
+// 表单验证
+let validate = () => {
+  return form.value!.validate;
+};
+
+// 表单数据
+let getFormData = () => {
+  return model.value;
+};
+// 将子组件的实例和方法暴露给父组件
 defineExpose({
   resetFields,
+  validate,
+  getFormData,
 });
 onMounted(() => {
   initForm();
