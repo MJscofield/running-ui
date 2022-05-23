@@ -82,7 +82,7 @@ let options: FormOptions[] = [
       {
         required: true,
         message: "职位不能为空",
-        trigger: "blur",
+        trigger: "change",
       },
     ],
     children: [
@@ -112,7 +112,7 @@ let options: FormOptions[] = [
       {
         required: true,
         message: "请选择爱好",
-        trigger: "blur",
+        trigger: "change",
       },
     ],
     children: [
@@ -137,7 +137,7 @@ let options: FormOptions[] = [
       {
         required: true,
         message: "请选择性别",
-        trigger: "blur",
+        trigger: "change",
       },
     ],
     children: [
