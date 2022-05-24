@@ -7,9 +7,10 @@
     element-loading-text="缓冲中...."
     element-loading-background="rgba(122, 122, 122, 0.8)"
     element-loading-svg-view-box="-10, -10, 50, 50"
+    @check="check"
+    @close="close"
   >
     <template #date="{ scope }">
-      <el-icon-timer></el-icon-timer>
       {{ scope.row.date }}
     </template>
     <template #name="{ scope }">
@@ -44,8 +45,22 @@ interface TableData {
   address: string;
 }
 let options: TableOptions[] = [
-  { label: "日期", prop: "date", width: "200", align: "center", slot: "date" },
-  { label: "名字", prop: "name", width: "100", align: "center", slot: "name" },
+  {
+    label: "日期",
+    prop: "date",
+    width: "300",
+    align: "center",
+    slot: "date",
+    editable: true,
+  },
+  {
+    label: "名字",
+    prop: "name",
+    width: "200",
+    align: "center",
+    slot: "name",
+    editable: true,
+  },
   { label: "地址", prop: "address", width: "300", align: "center" },
   { label: "操作", action: true, align: "center" },
 ];
@@ -74,7 +89,7 @@ setTimeout(() => {
       address: "No. 189, Grove St, Los Angeles",
     },
   ];
-}, 1500);
+}, 500);
 let handleEdit = (scope: any) => {
   console.log(scope);
 };
@@ -92,6 +107,14 @@ const svg = `
           L 15 15
         " style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"/>
       `;
+
+// 接收从子组件穿过来的事件
+let check = (e: any) => {
+  console.log(e);
+};
+let close = (e: any) => {
+  console.log(e);
+};
 </script>
 <style scoped lang="scss">
 svg {
