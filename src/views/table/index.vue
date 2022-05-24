@@ -2,7 +2,7 @@
   <m-table
     :data="tableData"
     :options="options"
-    :editRowIndex="editRowIndex"
+    v-model:editRowIndex="editRowIndex"
     isEditRow
     border
     :element-loading-svg="svg"

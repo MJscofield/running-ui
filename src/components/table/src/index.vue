@@ -17,12 +17,12 @@
         :align="item.align"
       >
         <template #default="scope">
-          <template v-if="scope.row.isEditRow">
+          <template v-if="scope.row.rowEdit">
             <el-input v-model="scope.row[item.prop]" />
           </template>
           <template v-else>
             <template v-if="scope.$index + scope.column.id === currentEdit">
-              <div class="editArea" @click="clickEditCell">
+              <div class="editArea" @click.stop="clickEditCell">
                 <div class="editInput">
                   <el-input
                     size="small"
@@ -33,11 +33,11 @@
                 <div class="icon">
                   <el-icon-check
                     class="check"
-                    @click="confirm(scope)"
+                    @click.stop="confirm(scope)"
                   ></el-icon-check>
                   <el-icon-close
                     class="close"
-                    @click="cancel(scope)"
+                    @click.stop="cancel(scope)"
                   ></el-icon-close>
                 </div>
               </div>
@@ -55,7 +55,7 @@
               <component
                 v-else
                 :is="`el-icon${toLine(editIcon)}`"
-                @click="clickEdit(scope)"
+                @click.stop="clickEdit(scope)"
                 class="edit"
               ></component>
             </template>
@@ -69,7 +69,7 @@
       :align="actionOptions.align"
     >
       <template #default="scope">
-        <slot name="editRow" v-if="scope.row.isEditRow"></slot>
+        <slot name="editRow" v-if="scope.row.rowEdit"></slot>
         <slot name="action" :scope="scope" v-else></slot>
       </template>
     </el-table-column>
@@ -117,13 +117,13 @@ let props = defineProps({
     default: false,
   },
   editRowIndex: {
-    type: Number,
+    type: String,
     default: "",
   },
 });
 
 // emits
-let emits = defineEmits(["confirm", "cancel"]);
+let emits = defineEmits(["confirm", "cancel", "update:editRowIndex"]);
 // 过滤不含操作的配置
 let tableOptions = computed(() => {
   return props.options.filter((item) => !item.action);
@@ -148,8 +148,7 @@ watch(
   (val: any) => {
     tableData.value = cloneDeep(val);
     tableData.value.map((item) => {
-      console.log(item);
-      item.isEditRow = false;
+      item.rowEdit = false;
     });
   },
   { deep: true }
@@ -167,8 +166,7 @@ let cloneEditRowIndex = ref<any>(cloneDeep(props.editRowIndex));
 
 onMounted(() => {
   tableData.value.map((item) => {
-    console.log(item);
-    item.isEditRow = false;
+    item.rowEdit = false;
   });
 });
 
@@ -193,14 +191,21 @@ let cancel = (scope: any) => {
 
 // 操作项被点击
 let rowClick = (row: any, column: any) => {
+  console.log(row);
   if (column.label === actionOptions.value!.label) {
     if (props.isEditRow && cloneEditRowIndex.value === props.editRowIndex) {
-      row.isEditRow = !row.isEditRow;
+      row.rowEdit = !row.rowEdit;
       tableData.value.map((item) => {
         if (item !== row) {
-          item.isEditRow = false;
+          item.rowEdit = false;
         }
       });
+      // 重置按钮的标识
+      if (!row.rowEdit) {
+        emits("update:editRowIndex", "");
+      }
+      console.log("row.rowEdit", row.rowEdit);
+      console.log("editRowIndex", props.editRowIndex);
     }
   }
 };
