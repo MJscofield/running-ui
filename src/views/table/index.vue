@@ -2,13 +2,15 @@
   <m-table
     :data="tableData"
     :options="options"
+    :editRowIndex="editRowIndex"
+    isEditRow
     border
     :element-loading-svg="svg"
     element-loading-text="缓冲中...."
     element-loading-background="rgba(122, 122, 122, 0.8)"
     element-loading-svg-view-box="-10, -10, 50, 50"
-    @check="check"
-    @close="close"
+    @confirm="confirm"
+    @cancel="cancel"
   >
     <template #date="{ scope }">
       {{ scope.row.date }}
@@ -33,6 +35,21 @@
         >删除</el-button
       >
     </template>
+    <template #editRow="slotProps">
+      <!-- 这里也可以直接用{scope}将传过来的属性结构出来 -->
+      <el-button
+        size="small"
+        type="primary"
+        @click="handleEdit(slotProps.scope)"
+        >确认</el-button
+      >
+      <el-button
+        size="small"
+        type="danger"
+        @click="handleDelete(slotProps.scope)"
+        >取消</el-button
+      >
+    </template>
   </m-table>
 </template>
 
@@ -44,6 +61,7 @@ interface TableData {
   name: string;
   address: string;
 }
+let editRowIndex = ref<string>("edit");
 let options: TableOptions[] = [
   {
     label: "日期",
@@ -62,7 +80,7 @@ let options: TableOptions[] = [
     editable: true,
   },
   { label: "地址", prop: "address", width: "300", align: "center" },
-  { label: "操作", action: true, align: "center" },
+  { label: "操作", prop: "action", action: true, align: "center" },
 ];
 let tableData = ref<TableData[]>([]);
 // 让数据延时出现, 以便看到loading
@@ -91,7 +109,7 @@ setTimeout(() => {
   ];
 }, 500);
 let handleEdit = (scope: any) => {
-  console.log(scope);
+  editRowIndex.value = "edit";
 };
 let handleDelete = (scope: any) => {
   console.log(scope);
@@ -109,10 +127,10 @@ const svg = `
       `;
 
 // 接收从子组件穿过来的事件
-let check = (e: any) => {
+let confirm = (e: any) => {
   console.log(e);
 };
-let close = (e: any) => {
+let cancel = (e: any) => {
   console.log(e);
 };
 </script>
