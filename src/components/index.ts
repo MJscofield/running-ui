@@ -10,6 +10,7 @@ import chooseDate from "./chooseDate";
 import form from "./form";
 import modalForm from "./modalForm";
 import table from "./table";
+import calendar from "./calendar";
 import { App } from "vue";
 
 const components = [
@@ -25,6 +26,7 @@ const components = [
   form,
   modalForm,
   table,
+  calendar
 ];
 export default {
   install(app: App) {

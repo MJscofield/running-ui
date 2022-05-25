@@ -8,6 +8,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fullcalendar/core": "^5.11.0",
+    "@fullcalendar/daygrid": "^5.11.0",
+    "@fullcalendar/interaction": "^5.11.0",
     "@types/lodash": "^4.14.182",
     "element-plus": "^2.2.0",
     "lodash": "^4.17.21",
