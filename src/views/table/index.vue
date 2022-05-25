@@ -11,6 +11,13 @@
     element-loading-svg-view-box="-10, -10, 50, 50"
     @confirm="confirm"
     @cancel="cancel"
+    isPagination
+    v-model:currentPage="current"
+    :pageSize="pageSize"
+    :pageSizes="[10, 20, 30, 40, 50]"
+    :total="total"
+    @sizeChange="sizeChange"
+    @currentChange="currentChange"
   >
     <template #date="{ scope }">
       {{ scope.row.date }}
@@ -54,8 +61,9 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { TableOptions } from "src/components/table/src/types";
+import axios from "axios";
 interface TableData {
   date: string;
   name: string;
@@ -66,7 +74,7 @@ let options: TableOptions[] = [
   {
     label: "日期",
     prop: "date",
-    width: "300",
+    width: "200",
     align: "center",
     slot: "date",
     editable: true,
@@ -79,35 +87,62 @@ let options: TableOptions[] = [
     slot: "name",
     editable: true,
   },
-  { label: "地址", prop: "address", width: "300", align: "center" },
+  { label: "地址", prop: "address", width: "200", align: "center" },
   { label: "操作", prop: "action", action: true, align: "center" },
 ];
 let tableData = ref<TableData[]>([]);
+let current = ref<number>(1);
+let pageSize = ref<number>(10);
+let total = ref<number>(0);
+
+// 利用mock模拟数据
+let getData = () => {
+  axios
+    .post("/api/list", {
+      current: current.value,
+      pageSize: pageSize.value,
+    })
+    .then((res: any) => {
+      tableData.value = res.data.data.rows;
+      total.value = res.data.data.total;
+    });
+};
+onMounted(() => {
+  getData();
+});
+let sizeChange = (val: any) => {
+  pageSize.value = val;
+  getData();
+};
+let currentChange = (val: any) => {
+  current.value = val;
+  getData();
+};
 // 让数据延时出现, 以便看到loading
-setTimeout(() => {
-  tableData.value = [
-    {
-      date: "2016-05-03",
-      name: "Tom",
-      address: "No. 189, Grove St, Los Angeles",
-    },
-    {
-      date: "2016-05-02",
-      name: "Tom",
-      address: "No. 189, Grove St, Los Angeles",
-    },
-    {
-      date: "2016-05-04",
-      name: "Tom",
-      address: "No. 189, Grove St, Los Angeles",
-    },
-    {
-      date: "2016-05-01",
-      name: "Tom",
-      address: "No. 189, Grove St, Los Angeles",
-    },
-  ];
-}, 500);
+// setTimeout(() => {
+//   tableData.value = [
+//     {
+//       date: "2016-05-03",
+//       name: "Tom",
+//       address: "No. 189, Grove St, Los Angeles",
+//     },
+//     {
+//       date: "2016-05-02",
+//       name: "Tom",
+//       address: "No. 189, Grove St, Los Angeles",
+//     },
+//     {
+//       date: "2016-05-04",
+//       name: "Tom",
+//       address: "No. 189, Grove St, Los Angeles",
+//     },
+//     {
+//       date: "2016-05-01",
+//       name: "Tom",
+//       address: "No. 189, Grove St, Los Angeles",
+//     },
+//   ];
+// }, 500);
 let handleEdit = (scope: any) => {
   editRowIndex.value = "edit";
 };

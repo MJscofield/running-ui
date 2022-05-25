@@ -74,6 +74,25 @@
       </template>
     </el-table-column>
   </el-table>
+  <div
+    style="
+       {
+        display: flex;
+      }
+    "
+  >
+    <el-pagination
+      v-if="isPagination"
+      v-model:currentPage="currentPage"
+      v-model:page-size="pageSize"
+      :page-sizes="pageSizes"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :style="{ justifyContent: paginationPositionJustify, margin: '0 10px' }"
+    />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -120,10 +139,46 @@ let props = defineProps({
     type: String,
     default: "",
   },
+  // 是否显示分页器
+  isPagination: {
+    type: Boolean,
+    default: false,
+  },
+  // 当前是第几页数据
+  currentPage: {
+    type: Number,
+    default: 1,
+  },
+  // 每页显示的数据条数
+  pageSize: {
+    type: Number,
+    default: 10,
+  },
+  // 每页数据的选项
+  pageSizes: {
+    type: Array as PropType<number[]>,
+    default: () => [10, 20, 30, 40, 50],
+  },
+  // 数据总数
+  total: {
+    type: Number,
+    default: 0,
+  },
+  // 分页器显示位置
+  paginationPosition: {
+    type: String as PropType<"left" | "right" | "center">,
+    default: "right",
+  },
 });
 
 // emits
-let emits = defineEmits(["confirm", "cancel", "update:editRowIndex"]);
+let emits = defineEmits([
+  "confirm",
+  "cancel",
+  "update:editRowIndex",
+  "sizeChange",
+  "currentChange",
+]);
 // 过滤不含操作的配置
 let tableOptions = computed(() => {
   return props.options.filter((item) => !item.action);
@@ -209,6 +264,26 @@ let rowClick = (row: any, column: any) => {
     }
   }
 };
+
+// 当前页被改变
+let handleCurrentChange = (val: number) => {
+  emits("currentChange", val);
+};
+// 每页显示条数被改变
+let handleSizeChange = (val: number) => {
+  emits("sizeChange", val);
+};
+
+// 分页器位置
+let paginationPositionJustify = computed(() => {
+  if (props.paginationPosition === "left") {
+    return "flex-start";
+  } else if (props.paginationPosition === "right") {
+    return "flex-end";
+  } else {
+    return "center";
+  }
+});
 </script>
 <style scoped lang="scss">
 .edit {
