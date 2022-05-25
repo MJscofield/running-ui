@@ -11,7 +11,7 @@
               @click="clickItem(item1, indey)"
             >
               <div class="avatar" v-if="item1.avatar">
-                <el-avatar :size="small" :src="item1.avatar" />
+                <el-avatar size="small" :src="item1.avatar" />
               </div>
               <div class="content">
                 <div class="title">

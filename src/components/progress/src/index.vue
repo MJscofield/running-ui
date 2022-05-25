@@ -1,5 +1,6 @@
 <template>
-  <el-progress :percentage="p"></el-progress>
+  <el-progress :percentage="p" :isAnimation="isAnimation" v-bind="$attrs">
+  </el-progress>
 </template>
 
 <script lang="ts" setup>
@@ -32,7 +33,6 @@ onMounted(() => {
         p.value = props.percentage;
         clearInterval(timer);
       }
-      console.log(p.value, t, props.time);
     }, t);
   }
 });

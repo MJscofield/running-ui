@@ -97,7 +97,8 @@ let props = defineProps({
   }
   .icon {
     svg {
-      font-size: 1rem;
+      width: 1.3rem;
+      height: 1.3rem;
     }
   }
 }

@@ -3,16 +3,17 @@
 </template>
 
 <script lang="ts" setup>
+// 在vite里面使用fullcalendar 需要引入一个包
 import "@fullcalendar/core/vdom";
-import { Calendar, EventClickArg } from "@fullcalendar/core";
-import daygrid from "@fullcalendar/daygrid";
-import interaction, { DateClickArg } from "@fullcalendar/interaction";
-import { onMounted, PropType, ref, watch } from "vue";
+import { Calendar, EventClickArg, EventContentArg } from "@fullcalendar/core";
+import daygridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
+import { ref, onMounted, PropType, watch } from "vue";
 import { EventItem } from "./types";
 
 let props = defineProps({
-  // 语言
-  locale: {
+  // 日历显示的语言
+  local: {
     type: String,
     default: "zh-cn",
   },
@@ -48,71 +49,89 @@ let props = defineProps({
       };
     },
   },
-
   // 底部工具栏
   footerToolbar: {
     type: Object,
-    default: () => {},
   },
-
-  // 事件源
+  // 日历事件
   events: {
     type: Array as PropType<EventItem[]>,
     default: () => [],
   },
+  // 自定义渲染内容方法
+  eventContent: {
+    type: Function,
+  },
 });
 
-// 日历实例
+let emits = defineEmits(["date-click", "event-click"]);
+
+// 日历对象
 let calendar = ref<Calendar>();
 
-let emits = defineEmits(["eventClick", "dateClick"]);
-// 渲染日历的方法
+// 生成日历的方法
 let renderCalendar = () => {
   let el = document.getElementById("calendar");
-  console.log(el);
   if (el) {
+    // 日历的配置选项
     calendar.value = new Calendar(el, {
-      plugins: [daygrid, interaction],
-      locale: props.locale,
+      // 使用到的插件
+      plugins: [daygridPlugin, interactionPlugin],
+      // 视图模式
       initialView: props.initialView,
+      // 语言
+      locale: props.local,
+      // 按钮文字
       buttonText: props.buttonText,
+      // 头部工具栏
       headerToolbar: props.headerToolbar,
+      // 底部工具栏
       footerToolbar: props.footerToolbar,
+      // 事件源
       eventSources: [
         {
+          // 生成事件
           events(e, callback) {
-            if (props.events.length) {
-              callback(props.events);
-            } else {
-              callback([]);
-            }
+            if (props.events.length) callback(props.events);
+            else callback([]);
           },
         },
       ],
+      // 点击日历的某一天
       dateClick(info: DateClickArg) {
-        emits("dateClick", info);
+        // console.log(info)
+        emits("date-click", info);
       },
+      // 点击日历上的时间
       eventClick(info: EventClickArg) {
-        emits("eventClick", info);
+        // console.log('eventClick', info)
+        emits("event-click", info);
       },
+      // 显示事件的结束时间
+      displayEventEnd: true,
+      // 自定义渲染内容
+      eventContent: props.eventContent,
     });
     calendar.value.render();
   }
 };
 
-// 渲染日历
-onMounted(() => {
-  renderCalendar();
-});
-
-// 监听父组件的变化
+// 监听事件源的变化
 watch(
   () => props.events,
   () => {
     renderCalendar();
-    console.log(props.events);
   },
   { deep: true }
 );
+onMounted(() => {
+  renderCalendar();
+});
 </script>
-<style scoped lang="scss"></style>
+
+<style lang="scss" scoped>
+svg {
+  width: 1em;
+  height: 1em;
+}
+</style>

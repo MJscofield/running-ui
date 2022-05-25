@@ -1,13 +1,13 @@
 <template>
   <div class="menu">
     <div class="menu-item1">
-      <m-menu :data="data" defaultActive="3" uniqueOpened="true"></m-menu>
+      <m-menu :data="data" defaultActive="3" :uniqueOpened="true"></m-menu>
     </div>
     <div class="menu-item2">
       <m-infinite-menu
         :data="data1"
         defaultActive="3-1-1"
-        uniqueOpened="true"
+        :uniqueOpened="true"
       ></m-infinite-menu>
     </div>
   </div>

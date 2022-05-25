@@ -52,11 +52,7 @@ let data = [
     icon: "Menu",
     index: "/menu",
   },
-  {
-    name: "城市选择",
-    icon: "Location",
-    index: "/chooseCity",
-  },
+
   {
     name: "进度条",
     icon: "DArrowRight",
